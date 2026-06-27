@@ -49,10 +49,15 @@ case "$AGENT" in
     ;;
   cursor)
     mkdir -p .cursor/rules
-    for skill in physics chemistry biology; do
-      cp "/tmp/hs-skills/skills/${skill}-exam-master/SKILL.md" ".cursor/rules/${skill}-80plus.mdc"
+    for skill in math chinese physics chemistry biology; do
+      case "$skill" in
+        math|chinese|physics|chemistry|biology)
+          cp "/tmp/hs-skills/skills/${skill}-exam-master/SKILL.md" ".cursor/rules/${skill}-80plus.mdc"
+          ;;
+      esac
     done
     cp "/tmp/hs-skills/skills/classical-chinese-analyzer/SKILL.md" ".cursor/rules/classical-chinese.mdc"
+    cp "/tmp/hs-skills/skills/english-study-analyzer/SKILL.md" ".cursor/rules/english-study.mdc"
     echo "✅ 已安装到 Cursor: .cursor/rules/"
     ;;
   windsurf)
@@ -85,6 +90,9 @@ rm -rf /tmp/hs-skills /tmp/hs-skills.zip 2>/dev/null
 
 echo ""
 echo "🎉 安装完成！已安装以下技能:"
+echo "   数学80+提分   → 六大模块+解答题模板+选填快解"
+echo "   语文80+提分   → 现代文阅读+古诗鉴赏+作文+语用"
+echo "   英语分析      → 语法精讲+词根词缀+全文翻译"
 echo "   物理80+提分   → 30个核心模型+六大题型模板"
 echo "   化学80+提分   → 三大压轴题模型+方程式50条"
 echo "   生物80+提分   → 八大长句模板+遗传九大题型"

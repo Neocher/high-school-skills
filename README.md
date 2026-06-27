@@ -1,138 +1,101 @@
-# 高中学习AI辅助Skill包
+# 高中学习AI辅助Skill包 — 六科全覆盖
 
-> **物理 80+提分 · 化学 80+提分 · 生物 80+提分 · 文言文分析**
->
+> **语数外物化生** 全科80+提分辅助
+> 
 > 跨Agent格式，兼容 Hermes / Claude Code / Codex CLI / Cursor / Windsurf
 
-## 📦 包含的Skill
+## 📦 六科Skill一览
 
-| Skill | 说明 | 目标 |
-|:------|:-----|:----|
-| `physics-exam-master` | 物理80+提分助手 | 30个核心模型+六大题型模板+实验五步法 |
-| `chemistry-exam-master` | 化学80+提分助手 | 三大压轴题模型+方程式50条+化学反应原理 |
-| `biology-exam-master` | 生物80+提分助手 | 八大长句表达模板+遗传九大题型+实验五要素 |
-| `classical-chinese-analyzer` | 文言文分析助手 | 逐句翻译+18虚词+120实词+特殊句式+高考题型训练 |
-| `english-study-analyzer` | 英语学习分析助手 | 语法精讲+词根词缀+全文翻译+配套练习 |
+| 学科 | Skill | 核心功能 | 状态 |
+|:---:|:------|:---------|:----:|
+| 📖 **语文** | `chinese-exam-master` | 现代文阅读模板+古诗词鉴赏框架+议论文六段式+语用题型 | ✅ **新增** |
+| 📖 **语文·文言文** | `classical-chinese-analyzer` | 逐句翻译+虚词/实词/句式/通假字+断句训练 | ✅ 已有 |
+| 🔢 **数学** | `math-exam-master` | 六大模块+解答题标准模板+选填快解技巧+导数压轴策略 | ✅ **新增** |
+| 🌍 **英语** | `english-study-analyzer` | 逐句中英对照+语法精讲+词根词缀+配套练习 | ✅ 已有 |
+| ⚡ **物理** | `physics-exam-master` | 30个核心模型+实验五步法+计算规范+80+策略 | ✅ 已有 |
+| 🧪 **化学** | `chemistry-exam-master` | 三大压轴题模型+方程式50条+化学反应原理+工艺流程 | ✅ 已有 |
+| 🧬 **生物** | `biology-exam-master` | 八大长句模板+遗传九大题型+实验五要素+易混概念 | ✅ 已有 |
 
-## 🚀 快速安装
-
-### Hermes Agent
-
-```bash
-# 克隆到 Hermes skills 目录
-cd ~/.hermes/skills/education/
-git clone https://github.com/Neocher/high-school-skills.git
-
-# 或者只复制需要的 skill
-cp -r high-school-skills/skills/physics-exam-master ~/.hermes/skills/education/
-```
-
-### Claude Code
+## 🚀 一键安装
 
 ```bash
-cd your-project
-git clone https://github.com/Neocher/high-school-skills.git
-cp -r high-school-skills/skills/* ~/.claude/skills/
+# 方式一：gh（推荐）
+gh repo clone Neocher/high-school-skills /tmp/skills
+cp -r /tmp/skills/skills/* 【对应Agent的安装目录】
+
+# 方式二：curl（无GitHub环境）
+curl -L -o /tmp/s.zip https://github.com/Neocher/high-school-skills/archive/main.zip
+unzip /tmp/s.zip -d /tmp/ && cp -r /tmp/high-school-skills-main/skills/* 【安装目录】
+
+# 方式三：一键脚本（最推荐）
+bash <(curl -L https://github.com/Neocher/high-school-skills/raw/main/install-skills.sh) hermes
+# 替换 hermes 为: claude-code | codex | cursor | windsurf | copilot | cline
 ```
 
-### Codex CLI
+### 各Agent安装目录
 
-```bash
-cd ~/.codex/rules/
-git clone https://github.com/Neocher/high-school-skills.git
-# 或复制具体skill的markdown文件
-cp ../high-school-skills/skills/physics-exam-master/SKILL.md ./physics-exam-master.md
-```
-
-### Cursor
-
-```bash
-# Cursor 支持 .cursor/rules/ 目录
-cd .cursor/rules/
-cp -r ../high-school-skills/skills/physics-exam-master/SKILL.md ./physics-exam-master.mdc
-```
-
-### 手动安装（通用方式）
-
-在任何AI Agent对话中粘贴以下内容即可激活：
-
-```
-请加载 physics-exam-master skill：https://github.com/Neocher/high-school-skills/blob/main/skills/physics-exam-master/SKILL.md
-```
+| Agent | 安装目录 | 重启方式 |
+|:------|:---------|:---------|
+| Hermes | `~/.hermes/skills/education/` | `systemctl --user restart hermes-gateway` |
+| Claude Code | `.claude/skills/` | 重启终端 |
+| Codex CLI | `~/.codex/rules/` | 重启桌面版 |
+| Cursor | `.cursor/rules/` | 重启编辑器 |
+| Windsurf | `.windsurf/rules/` | 重启IDE |
 
 ## 📁 目录结构
 
 ```
 high-school-skills/
-├── README.md                    # 本文件（使用说明）
-├── INSTALL.md                   # 各平台详细安装指南
-├── skills/                      # Hermes/Claude Code 原生 SKILL.md 格式
-│   ├── physics-exam-master/
-│   │   ├── SKILL.md             # 主skill文件
-│   │   └── test-prompts.json    # 测试用例
-│   ├── chemistry-exam-master/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json
-│   ├── biology-exam-master/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json
-│   ├── classical-chinese-analyzer/
-│   │   ├── SKILL.md
-│   │   └── test-prompts.json
-│   └── english-study-analyzer/  # 注意：此skill有references依赖
-│       ├── SKILL.md
-│       ├── references/
-│       └── scripts/
-├── portable/                    # 纯Markdown版本（万用格式）
-│   ├── physics-80plus.md
-│   ├── chemistry-80plus.md
-│   ├── biology-80plus.md
-│   └── classical-chinese.md
-├── cursor-rules/                # Cursor 专用 .mdc 格式
-│   ├── physics-exam-master.mdc
-│   ├── chemistry-exam-master.mdc
-│   ├── biology-exam-master.mdc
-│   └── classical-chinese-analyzer.mdc
-└── codify-rules/               # Codex CLI / Windsurf 规则格式
-    ├── physics-exam-master.md
-    ├── chemistry-exam-master.md
-    ├── biology-exam-master.md
-    └── classical-chinese-analyzer.md
+├── README.md
+├── install-skills.sh          # 一键安装脚本
+├── skills/                    # SKILL.md 原生格式
+│   ├── math-exam-master/          数学80+提分  ✅ NEW
+│   ├── chinese-exam-master/       语文80+提分  ✅ NEW
+│   ├── physics-exam-master/       物理80+提分
+│   ├── chemistry-exam-master/     化学80+提分
+│   ├── biology-exam-master/       生物80+提分
+│   ├── classical-chinese-analyzer/ 文言文分析
+│   └── english-study-analyzer/    英语学习分析
+└── portable/                  # 纯Markdown版（万用格式）
+    ├── math.md
+    ├── chinese.md
+    ├── physics.md
+    ├── chemistry.md
+    ├── biology.md
+    └── classical-chinese.md
 ```
 
-## 🔄 跨Agent兼容性
+## 📝 快速使用
 
-| Agent | SKILL.md | 纯Markdown | .mdc | 直接复制 |
-|:------|:--------:|:----------:|:----:|:--------:|
-| Hermes Agent | ✅ | ✅ | ❌ | ✅ `~/.hermes/skills/` |
-| Claude Code | ✅ | ✅ | ❌ | ✅ `.claude/skills/` |
-| Codex CLI | ⚠️ | ✅ | ❌ | ✅ `.codex/rules/` |
-| Cursor | ❌ | ✅ | ✅ | ✅ `.cursor/rules/` |
-| Windsurf | ❌ | ✅ | ❌ | ✅ `.windsurf/rules/` |
-| GitHub Copilot | ❌ | ✅ | ❌ | ✅ `.github/copilot-instructions.md` |
-| Cline/Roo Code | ❌ | ✅ | ❌ | ✅ `.clinerules` |
-| 通用对话 | ❌ | ✅ | ❌ | 粘贴文字即可 |
-
-## 📝 使用示例
-
+### 语文
 ```
-我：帮我复习高中物理力学，列出所有公式及其适用条件
-→ Agent加载 physics-exam-master skill，按80+标准输出
-
-我：分析这段文言文：
-"师者，所以传道受业解惑也。人非生而知之者，孰能无惑？"
-→ Agent加载 classical-chinese-analyzer skill，逐句翻译+虚词标注
+"帮我分析这段现代文阅读..."
+"这篇作文怎么写？给我六段式结构"
+"分析这首古诗用了什么手法"
+"这些成语题帮我做一下"
 ```
 
-## ⚙️ 达尔文优化
+### 数学
+```
+"帮我解这道导数压轴题"
+"圆锥曲线大题的标准模板"
+"数列求通项公式的方法总结"
+"选填快解技巧训练"
+```
 
-所有Skill已通过达尔文进化工具的8维度评估和优化，包括：
-- 边界声明（什么不做）
-- 步骤间检查点
-- 完整示例（无截断）
-- 工具集成（与web_search/read_file等联动）
-- 版本记录
+### 英语
+```
+"分析这篇英语文章的语法和重点词汇"
+"逐句中英对照翻译这个段落"
+"给我生成完形填空练习"
+```
 
-## 📄 许可
+### 物理/化学/生物
+```
+"帮我分析这道受力分析题"（物理）
+"配平这个氧化还原方程式"（化学）
+"这道遗传概率怎么算"（生物）
+```
 
-MIT License
+## 🔗 仓库
+https://github.com/Neocher/high-school-skills
